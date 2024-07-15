@@ -2,16 +2,16 @@ package app;
 import java.util.Scanner;
 
 public class TicTacToeConsoleVersion {
-    private static char[] board = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
-    private static char currentPlayer = 'X';
-
+ 
     public static void main(String[] args) {
+        char[] board = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
+        char currentPlayer = 'X';
         Scanner scanner = new Scanner(System.in);
         int move;
         boolean gameWon = false;
 
         while (true) {
-            printBoard();
+            printBoard(board);
             System.out.println("Player " + currentPlayer + ", enter your move (1-9): ");
             if (scanner.hasNextInt()) {
                 move = scanner.nextInt() - 1;
@@ -27,10 +27,10 @@ public class TicTacToeConsoleVersion {
             }
 
             board[move] = currentPlayer;
-            gameWon = checkWin();
+            gameWon = checkWin(board, currentPlayer);
 
-            if (gameWon || isBoardFull()) {
-                printBoard();
+            if (gameWon || isBoardFull(board)) {
+                printBoard(board);
                 if (gameWon) {
                     System.out.println("Player " + currentPlayer + " wins!");
                 } else {
@@ -44,7 +44,7 @@ public class TicTacToeConsoleVersion {
         scanner.close();
     }
 
-    private static void printBoard() {
+    private static void printBoard(char[] board) {
         System.out.println(" " + board[0] + " | " + board[1] + " | " + board[2]);
         System.out.println("---+---+---");
         System.out.println(" " + board[3] + " | " + board[4] + " | " + board[5]);
@@ -52,7 +52,7 @@ public class TicTacToeConsoleVersion {
         System.out.println(" " + board[6] + " | " + board[7] + " | " + board[8]);
     }
 
-    private static boolean checkWin() {
+    private static boolean checkWin(char[] board , char currentPlayer) {
         for (int i = 0; i < 3; i++) {
             if (board[i * 3] == currentPlayer && board[i * 3 + 1] == currentPlayer && board[i * 3 + 2] == currentPlayer) {
                 return true;
@@ -65,7 +65,7 @@ public class TicTacToeConsoleVersion {
                (board[2] == currentPlayer && board[4] == currentPlayer && board[6] == currentPlayer);
     }
 
-    private static boolean isBoardFull() {
+    private static boolean isBoardFull(char[] board) {
         for (char c : board) {
             if (c == ' ') {
                 return false;
